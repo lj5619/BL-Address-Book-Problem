@@ -1,3 +1,4 @@
+from contact import Contact
 
 class AddressBook:
     """
@@ -30,7 +31,33 @@ class AddressBook:
         """
         self.contacts.append(contact)
 
+    def edit_contact(self):
+        """
+        Description:
+            Function to edit contact
+        Parameters:
+            self
+        Return:
+            None
+        """
+        found = False
+        search_name = input("Enter the first name of the contact to edit: ")
+        for contact in self.contacts:
+            if contact.first_name.lower() == search_name.lower():
+                contact.update_contact()
+                found = True
+        if not found:
+            print("Contact not found")
+
     def print_contacts(self):
+        """
+        Description:
+            Function to print the contacts
+        Parameters:
+            self
+        Return:
+            none
+        """
         if self.contacts:
             for contact in self.contacts:
                 print(contact)
