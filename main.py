@@ -1,6 +1,7 @@
 from validator import validate_user_data
 from addressbook import AddressBook
 from contact import Contact
+from addressbookmain import AddressBookMain
 
 print("------------------------WELCOME TO ADDRESS BOOK-----------------------------")
 
@@ -10,37 +11,56 @@ def main():
         Main function that takes in input from the user and adds contact to address book
     Parameters:
         None
-    Return:s
+    Return:
         None
     """
-    address_book = AddressBook()
+    address_book_main = AddressBookMain()
+    address_book = None
+    
     while True:
-        choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Delete Contact\n5.Exit\nEnter choice: "))
-        match choice:
-            case 1:
-                user_details = {
-                    "first_name": input("Enter First Name: "),
-                    "last_name": input("Enter Last Name: "),
-                    "address": input("Enter Address: "),
-                    "city": input("Enter City: "),
-                    "state": input("Enter State: "),
-                    "zipcode": input("Enter Zipcode: "),
-                    "phone_num": input("Enter Phone Number: "),
-                    "email": input("Enter Email ID: ")
-                }
+        ch = int(input("Select option u want to create:\n1.Create new addressbook\n2.Manage existing addressbook\n3.Exit\n"))
+        if ch == 1:
             
-                if validate_user_data(user_details):
-                    contact = Contact(**user_details)
-                    address_book.add_contact(contact)
-            case 2:
-                address_book.print_contacts()
-            case 3:
-                address_book.edit_contact()
-            case 4:
-                address_book.delete_contact()
-            case _:
-                print("Exiting....")
-                break
+            address_book_name = input("Enter name for the new address book: ")
+            address_book = address_book_main.add_address_book_to_main(address_book_name)
+             
+        
+        elif ch == 2:
+            address_book_id = input("Enter name of the address book to use: ")
+            address_book = address_book_main.get_address_book_from_main(address_book_id)
+            if not address_book:
+                print("Address book not found!")
+                continue
+        else:
+            break
+        
+        while True:
+            choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Delete Contact\n6.Exit\nEnter choice: "))
+            match choice:
+                case 1:
+                    user_details = {
+                        "first_name": input("Enter First Name: "),
+                        "last_name": input("Enter Last Name: "),
+                        "address": input("Enter Address: "),
+                        "city": input("Enter City: "),
+                        "state": input("Enter State: "),
+                        "zipcode": input("Enter Zipcode: "),
+                        "phone_num": input("Enter Phone Number: "),
+                        "email": input("Enter Email ID: ")
+                    }
+                
+                    if validate_user_data(user_details):
+                        contact = Contact(**user_details)
+                        address_book.add_contact(contact)
+                case 2:
+                    address_book.print_contacts()
+                case 3:
+                    address_book.edit_contact()
+                case 4:
+                    address_book.delete_contact()
+                case _:
+                    print("Exiting....")
+                    break
 
 if __name__ == "__main__":
     main()

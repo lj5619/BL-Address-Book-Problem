@@ -9,7 +9,7 @@ class AddressBook:
     Return:
         None
     """
-    def __init__(self):
+    def __init__(self,name):
         """
         Description:
             Constructor to initialize contacts list
@@ -18,6 +18,7 @@ class AddressBook:
         Return:
             None
         """
+        self.address_book_name = name
         self.contacts = []
 
     def add_contact(self, contact):
@@ -40,9 +41,9 @@ class AddressBook:
         Return:
             None
         """
-        search_name = input("Enter the first name of the contact to edit: ")
+        search_firstname,search_lastname = input("Enter the full name of the contact to delete: ").split()
         for contact in self.contacts:
-            if contact.first_name.lower() == search_name.lower():
+            if contact.first_name.lower() == search_firstname.lower() and contact.last_name.lower() == search_lastname.lower():
                 contact.update_contact()
                 return
         print("Contact not found")
