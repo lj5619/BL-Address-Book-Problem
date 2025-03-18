@@ -15,7 +15,7 @@ def main():
     """
     address_book = AddressBook()
     while True:
-        choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Exit\nEnter choice: "))
+        choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Delete Contact\n5.Exit\nEnter choice: "))
         match choice:
             case 1:
                 user_details = {
@@ -36,6 +36,8 @@ def main():
                 address_book.print_contacts()
             case 3:
                 address_book.edit_contact()
+            case 4:
+                address_book.delete_contact()
             case _:
                 print("Exiting....")
                 break
