@@ -12,6 +12,14 @@ class Contact:
         for k,v in kwargs.items():
             setattr(self,k,v)
 
+    def check_duplicate(self,name):
+        name_set = set()
+        name_set.add(self.first_name)
+        if name not in name_set:
+            return True
+        else:
+            print('Duplicate name has been entered')
+        
     def update_contact(self):
         """
         Description:
@@ -26,9 +34,9 @@ class Contact:
             match choice:
                 case 1:
                     self.address = input('Enter new address: ')
-                    self.city = input('Enter city')
-                    self.state = input('Enter State')
-                    self.zipcode = input('Enter zipcode')
+                    self.city = input('Enter city: ')
+                    self.state = input('Enter State: ')
+                    self.zipcode = input('Enter zipcode: ')
                 case 2:
                     self.phone_num= input('Enter new phone number: ')
                 case 3:

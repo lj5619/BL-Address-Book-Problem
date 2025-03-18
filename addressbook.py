@@ -21,6 +21,14 @@ class AddressBook:
         self.address_book_name = name
         self.contacts = []
 
+
+    def check_duplicate(self,firstname,lastname):
+        for contact in self.contacts:
+            if contact.first_name.lower() == firstname.lower() and contact.last_name.lower() == lastname.lower():
+                return True
+            else:
+                return False
+
     def add_contact(self, contact):
         """
         Description:
@@ -30,7 +38,10 @@ class AddressBook:
         Return :
             None
         """
-        self.contacts.append(contact)
+        if not self.check_duplicate(contact.first_name,contact.last_name):
+            self.contacts.append(contact)
+        else:
+            print('Duplicate contact added')
 
     def edit_contact(self):
         """
