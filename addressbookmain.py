@@ -43,40 +43,71 @@ class AddressBookMain:
     
 
 class SearchAddressBookByCity(AddressBookMain):
+    """
+    Description:
+        Child class that is used to search the contact based on city
+    
+    """
 
     def __init__(self,address_book_main, city):
         super().__init__()
         self.address_books = address_book_main.address_books
         self.city = city
+        self.citycontacts = {}
 
     def search_contact_by_city(self):
+        """
+        Description:
+            Function used to search contact by city
+        Parameters:
+            self
+        Return:
+            None
+        """
 
-        found_contacts = []
         for address_book in self.address_books.values():
             print(address_book.contacts)
             for contact in address_book.contacts:
                 if contact.city.lower() == self.city.lower():
-                    found_contacts.append(vars(contact))
-        if not found_contacts:
+                    if self.city not in self.citycontacts:
+                        self.citycontacts[self.city] = [] 
+                    self.citycontacts[self.city].append(vars(contact))
+        if not self.citycontacts:
             print('No contacts found in this city.')
         
-        print("Contacts Found -->",found_contacts)
+        print("Contacts Found -->",self.citycontacts)
+ 
 
 class SearchAddressBookByState(AddressBookMain):
+    """
+    Description:
+        Child class that is used to search the contact based on state
+    
+    """
         
     def __init__(self,address_book_main, state):
         super().__init__()
         self.address_books = address_book_main.address_books
         self.state = state
+        self.statecontacts = {}
         
     def search_contact_by_state(self):
-        found_contacts = []
+        """
+        Description:
+            Function used to search contact by state
+        Parameters:
+            self
+        Return:
+            None
+        """
         for address_book in self.address_books.values():
             for contact in address_book.contacts:
                 if contact.state.lower() == self.state.lower():
-                    found_contacts.append(vars(contact))
+                    if self.state not in self.statecontacts:
+                        self.statecontacts[self.state] = [] 
+                    self.statecontacts[self.state].append(vars(contact))
                     
-        if not found_contacts:
+        if not self.statecontacts:
             print('No contacts found in this state.')
-        
-        print("Contacts Found -->",found_contacts)
+
+        print("Contacts Found -->",self.statecontacts)
