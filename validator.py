@@ -63,8 +63,7 @@ def validation_wrapper(func):
             validated_data = validate_data(data_dict)
             return func(validated_data)
         except ValidationError as e:
-            print(f"Validation error: {e}")
-            return None
+            print(e)
     return wrapper
 
 @validation_wrapper

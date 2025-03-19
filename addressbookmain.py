@@ -1,5 +1,5 @@
 from addressbook import AddressBook
-
+from contact import Contact
 class AddressBookMain:
 
     def __init__(self):
@@ -27,7 +27,8 @@ class AddressBookMain:
         else:
             address_book = AddressBook(name)
             self.address_books[name] = address_book
-            return address_book
+            return address_book        
+    
 
     def get_address_book_from_main(self, address_book_name):
         """
@@ -39,3 +40,43 @@ class AddressBookMain:
             address_book_id
         """
         return self.address_books.get(address_book_name)
+    
+
+class SearchAddressBookByCity(AddressBookMain):
+
+    def __init__(self,address_book_main, city):
+        super().__init__()
+        self.address_books = address_book_main.address_books
+        self.city = city
+
+    def search_contact_by_city(self):
+
+        found_contacts = []
+        for address_book in self.address_books.values():
+            print(address_book.contacts)
+            for contact in address_book.contacts:
+                if contact.city.lower() == self.city.lower():
+                    found_contacts.append(vars(contact))
+        if not found_contacts:
+            print('No contacts found in this city.')
+        
+        print("Contacts Found -->",found_contacts)
+
+class SearchAddressBookByState(AddressBookMain):
+        
+    def __init__(self,address_book_main, state):
+        super().__init__()
+        self.address_books = address_book_main.address_books
+        self.state = state
+        
+    def search_contact_by_state(self):
+        found_contacts = []
+        for address_book in self.address_books.values():
+            for contact in address_book.contacts:
+                if contact.state.lower() == self.state.lower():
+                    found_contacts.append(vars(contact))
+                    
+        if not found_contacts:
+            print('No contacts found in this state.')
+        
+        print("Contacts Found -->",found_contacts)

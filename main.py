@@ -1,7 +1,7 @@
 from validator import validate_user_data
 from addressbook import AddressBook
 from contact import Contact
-from addressbookmain import AddressBookMain
+from addressbookmain import *
 
 print("------------------------WELCOME TO ADDRESS BOOK-----------------------------")
 
@@ -15,10 +15,11 @@ def main():
         None
     """
     address_book_main = AddressBookMain()
+
     address_book = None
     
     while True:
-        ch = int(input("Select option u want to create:\n1.Create new addressbook\n2.Manage existing addressbook\n3.Exit\n"))
+        ch = int(input("Select option u want to create:\n1.Create new addressbook\n2.Manage existing addressbook\n3.Search Contact\n4.Exit\n"))
         if ch == 1:
             
             address_book_name = input("Enter name for the new address book: ")
@@ -31,11 +32,25 @@ def main():
             if not address_book:
                 print("Address book not found!")
                 continue
+        elif ch == 3:
+            option=int(input('Enter 1 for City or 2 for State: '))
+            if option == 1:
+                city = input('Enter name of the city: ')
+                searcher = SearchAddressBookByCity(address_book_main, city)
+                searcher.search_contact_by_city()
+            elif option == 2:
+                state = input('Enter name of the state: ')
+                searcher = SearchAddressBookByState(address_book_main, state)
+                searcher.search_contact_by_state()
+            else:
+                print('Invalid option')
+            continue
         else:
+            print('Thankyou for using Address Book')
             break
         
         while True:
-            choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Delete Contact\n6.Exit\nEnter choice: "))
+            choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Delete Contact\n5.Go back\nEnter choice: "))
             match choice:
                 case 1:
                     user_details = {
@@ -59,7 +74,7 @@ def main():
                 case 4:
                     address_book.delete_contact()
                 case _:
-                    print("Exiting....")
+                    print("Going back....")
                     break
 
 if __name__ == "__main__":
