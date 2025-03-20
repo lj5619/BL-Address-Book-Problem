@@ -1,4 +1,5 @@
 from validator import validate_user_data
+from addressbook import AddressBook
 class Contact:
     def __init__(self, **kwargs):
         """
@@ -11,14 +12,6 @@ class Contact:
         """
         for k,v in kwargs.items():
             setattr(self,k,v)
-
-    def check_duplicate(self,name):
-        name_set = set()
-        name_set.add(self.first_name)
-        if name not in name_set:
-            return True
-        else:
-            print('Duplicate name has been entered')
         
     def update_contact(self):
         """
@@ -46,7 +39,7 @@ class Contact:
                     break
 
         validate_user_data(self.__dict__)
-
+        
     def __str__(self):
         return (f"{self.first_name} {self.last_name}\n"
                 f"Address: {self.address}, {self.city}, {self.state} {self.zipcode}\n"
