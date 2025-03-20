@@ -1,4 +1,4 @@
-import csv
+import json
 import os
 from contact import Contact
 
@@ -22,7 +22,11 @@ class AddressBook:
         """
         self.address_book_name = name
         self.contacts = []
+<<<<<<< HEAD
         self.file_path = f'{'data/csv'}/{self.address_book_name}.csv'
+=======
+        self.file_path = f'{'data/json'}/{self.address_book_name}.json'
+>>>>>>> UC14_read_write_json
         if not os.path.exists(self.file_path): 
             open(self.file_path, mode='w', newline='').close()
         self.load_contacts()
@@ -141,7 +145,7 @@ class AddressBook:
     def load_contacts(self):
         """
         Description:
-            Loads contacts from a CSV file.
+            Loads contacts from a json file.
         Parameters:
             self
         Return:
@@ -149,32 +153,28 @@ class AddressBook:
         """
         try:
             with open(self.file_path, mode='r') as file:
-                reader = csv.DictReader(file)
+                reader = json.load(file)
                 for row in reader:
                     contact = Contact(**row)  
                     self.contacts.append(contact)
         except FileNotFoundError:
-            print("No previous contacts found, starting fresh.")
+            print("No previous contacts found")
+        except json.JSONDecodeError:
+            print("Error reading the JSON file. It may be corrupted or empty.")
     
     def save_contacts(self):
         """
         Description:
-            Saves all contacts in the address book to a CSV file.
+            Saves all contacts in the address book to a json file.
         Parameters:
             self
         Return:
             None
         """
         with open(self.file_path, mode='w', newline='') as file: 
-            fieldnames = ['first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'phone_num', 'email']
-            writer = csv.DictWriter(file, fieldnames=fieldnames)
-
-            writer.writeheader()
-
-            for contact in self.contacts:
-                writer.writerow(contact.__dict__)
+            contacts_data = [contact.__dict__ for contact in self.contacts]     
+            json.dump(contacts_data, file, indent=4)
     
     def __str__(self):
         return self.address_book_name
-
 
