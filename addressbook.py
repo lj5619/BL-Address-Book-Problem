@@ -75,6 +75,19 @@ class AddressBook:
                 return
         print("Contact not found")
 
+    def sort_by_name(self):
+        """
+        Description:
+            Function to sort contacts alphabetically on first name
+        Parameters:
+            self
+        Return:
+            None
+        """
+        self.contacts.sort(key = lambda contact : contact.first_name)
+        print('Sorted Name List')
+        for contact in self.contacts:
+            print(contact)
             
     def print_contacts(self):
         """

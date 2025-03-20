@@ -27,8 +27,8 @@ def main():
              
         
         elif ch == 2:
-            address_book_id = input("Enter name of the address book to use: ")
-            address_book = address_book_main.get_address_book_from_main(address_book_id)
+            address_book_existing_name = input("Enter name of the address book to use: ")
+            address_book = address_book_main.get_address_book_from_main(address_book_existing_name)
             if not address_book:
                 print("Address book not found!")
                 continue
@@ -50,7 +50,7 @@ def main():
             break
         
         while True:
-            choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Delete Contact\n5.Go back\nEnter choice: "))
+            choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Delete Contact\n5.Sorting by person's name alphabetically\n6.Go back\nEnter choice: "))
             match choice:
                 case 1:
                     user_details = {
@@ -73,6 +73,8 @@ def main():
                     address_book.edit_contact()
                 case 4:
                     address_book.delete_contact()
+                case 5:
+                    address_book.sort_by_name()
                 case _:
                     print("Going back....")
                     break
