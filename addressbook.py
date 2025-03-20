@@ -84,8 +84,33 @@ class AddressBook:
         Return:
             None
         """
-        self.contacts.sort(key = lambda contact : contact.first_name)
+        self.contacts.sort(key = lambda con : con.first_name)
         print('Sorted Name List')
+        for contact in self.contacts:
+            print(contact)
+
+    def sorting(self,key):
+        return self.contacts.sort(key = lambda con : getattr(con,key))
+    
+    def sort_by_location(self,choice):
+        """
+        Description:
+            Function to sort contact on basis of city, state or zipcode
+        Parameters:
+            self,choice
+        Return:
+            none
+        """
+        if choice == 1:
+            self.sorting('city')
+        elif choice == 2:
+            self.sorting('state')
+        elif choice == 3:
+            self.sorting('zipcode')
+        else:
+            print('Invalid input')
+            return
+            
         for contact in self.contacts:
             print(contact)
             

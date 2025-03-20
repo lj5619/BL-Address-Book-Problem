@@ -19,7 +19,7 @@ def main():
     address_book = None
     
     while True:
-        ch = int(input("Select option u want to create:\n1.Create new addressbook\n2.Manage existing addressbook\n3.Search Contact\n4.Exit\n"))
+        ch = int(input("Select option u want to create:\n1.Create new addressbook\n2.Manage existing addressbook\n3.Search Contact by City or State\n4.Exit\n"))
         if ch == 1:
             
             address_book_name = input("Enter name for the new address book: ")
@@ -32,6 +32,7 @@ def main():
             if not address_book:
                 print("Address book not found!")
                 continue
+
         elif ch == 3:
             option=int(input('Enter 1 for City or 2 for State: '))
             if option == 1:
@@ -45,12 +46,13 @@ def main():
             else:
                 print('Invalid option')
             continue
+
         else:
             print('Thankyou for using Address Book')
             break
         
         while True:
-            choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Delete Contact\n5.Sorting by person's name alphabetically\n6.Go back\nEnter choice: "))
+            choice = int(input("\n1.Add Contact\n2.Display Contact\n3.Edit Contact\n4.Delete Contact\n5.Sorting by person's name\n6.Sorting by City, State or Zipcode\n7.Go back\nEnter choice: "))
             match choice:
                 case 1:
                     user_details = {
@@ -75,6 +77,9 @@ def main():
                     address_book.delete_contact()
                 case 5:
                     address_book.sort_by_name()
+                case 6:
+                    sorting_choice = int(input("Enter 1 for City\nEnter 2 for State\nEnter 3 for Zipcode\nEnter choice:"))
+                    address_book.sort_by_location(sorting_choice)
                 case _:
                     print("Going back....")
                     break
