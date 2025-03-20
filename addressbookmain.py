@@ -11,6 +11,7 @@ class AddressBookMain:
         Return:
             None
         """
+
         self.address_books = {}
 
     def add_address_book_to_main(self, name):
@@ -55,7 +56,7 @@ class SearchAddressBookByCity(AddressBookMain):
         self.city = city
         self.citycontacts = {}
 
-    def search_contact_by_city(self,choice):
+    def search_contact_by_city(self):
         """
         Description:
             Function used to search contact by city
@@ -66,6 +67,7 @@ class SearchAddressBookByCity(AddressBookMain):
         """
 
         for address_book in self.address_books.values():
+            print(address_book.contacts)
             for contact in address_book.contacts:
                 if contact.city.lower() == self.city.lower():
                     if self.city not in self.citycontacts:
@@ -74,13 +76,10 @@ class SearchAddressBookByCity(AddressBookMain):
         if not self.citycontacts:
             print('No contacts found in this city.')
         
-        if choice == 1:
-            print("Contacts Found -->",self.citycontacts)
-        elif choice == 2:
-            for k,v in self.citycontacts.items():
-                print(f'In {k} there are {len(v)} people')
-        else:
-            print('Invalid Input')
+        print("Contacts Found -->",self.citycontacts)
+
+        for k,v in self.citycontacts.items():
+            print(f'In {k} there are {len(v)} people')
  
 
 class SearchAddressBookByState(AddressBookMain):
@@ -96,7 +95,7 @@ class SearchAddressBookByState(AddressBookMain):
         self.state = state
         self.statecontacts = {}
         
-    def search_contact_by_state(self,choice):
+    def search_contact_by_state(self):
         """
         Description:
             Function used to search contact by state
@@ -114,10 +113,8 @@ class SearchAddressBookByState(AddressBookMain):
                     
         if not self.statecontacts:
             print('No contacts found in this state.')
-        if choice == 1:
-            print("Contacts Found -->",self.statecontacts)
-        elif choice == 2:
-            for k,v in self.statecontacts.items():
-                print(f'In {k} there are {len(v)} people')
-        else:
-            print('Invalid Input')
+
+        print("Contacts Found -->",self.statecontacts)
+
+        for k,v in self.statecontacts.items():
+            print(f'In {k} there are {len(v)} people')
