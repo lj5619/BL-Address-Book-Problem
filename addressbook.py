@@ -23,6 +23,8 @@ class AddressBook:
         self.address_book_name = name
         self.contacts = []
         self.file_path = f'{'data/csv'}/{self.address_book_name}.csv'
+        if not os.path.exists(self.file_path): 
+            open(self.file_path, mode='w', newline='').close()
         self.load_contacts()
 
 
@@ -56,7 +58,7 @@ class AddressBook:
         Return:
             None
         """
-        search_firstname,search_lastname = input("Enter the full name of the contact to delete: ").split()
+        search_firstname,search_lastname = input("Enter the full name of the contact to edit: ").split()
         for contact in self.contacts:
             if contact.first_name.lower() == search_firstname.lower() and contact.last_name.lower() == search_lastname.lower():
                 contact.update_contact()
