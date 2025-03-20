@@ -38,11 +38,13 @@ def main():
             if option == 1:
                 city = input('Enter name of the city: ')
                 searcher = SearchAddressBookByCity(address_book_main, city)
-                searcher.search_contact_by_city()
+                opt = int(input('Enter 1 to display matching contacts or 2 to display only the count:'))
+                searcher.search_contact_by_city(opt)
             elif option == 2:
                 state = input('Enter name of the state: ')
                 searcher = SearchAddressBookByState(address_book_main, state)
-                searcher.search_contact_by_state()
+                opt = int(input('Enter 1 to display matching contacts or 2 to display only the count:'))
+                searcher.search_contact_by_state(opt)
             else:
                 print('Invalid option')
             continue
