@@ -1,3 +1,5 @@
+import csv
+import os
 from contact import Contact
 
 class AddressBook:
@@ -20,6 +22,8 @@ class AddressBook:
         """
         self.address_book_name = name
         self.contacts = []
+        self.file_path = f'{'data/csv'}/{self.address_book_name}.csv'
+        self.load_contacts()
 
 
     def check_duplicate(self,firstname,lastname):
@@ -39,6 +43,7 @@ class AddressBook:
         """
         if not self.check_duplicate(contact.first_name,contact.last_name):
             self.contacts.append(contact)
+            self.save_contacts() 
         else:
             print('Duplicate contact added')        
 
@@ -55,6 +60,7 @@ class AddressBook:
         for contact in self.contacts:
             if contact.first_name.lower() == search_firstname.lower() and contact.last_name.lower() == search_lastname.lower():
                 contact.update_contact()
+                self.save_contacts()
                 return
         print("Contact not found")
 
@@ -72,6 +78,7 @@ class AddressBook:
             if contact.first_name.lower() == search_firstname.lower() and contact.last_name.lower() == search_lastname.lower():
                 del self.contacts[i]
                 print(f"Contact '{contact.first_name} {contact.last_name}' has been deleted")
+                self.save_contacts()
                 return
         print("Contact not found")
 
@@ -128,6 +135,42 @@ class AddressBook:
                 print(contact)
         else:
             print("No contacts found")
+
+    def load_contacts(self):
+        """
+        Description:
+            Loads contacts from a CSV file.
+        Parameters:
+            self
+        Return:
+            None
+        """
+        try:
+            with open(self.file_path, mode='r') as file:
+                reader = csv.DictReader(file)
+                for row in reader:
+                    contact = Contact(**row)  
+                    self.contacts.append(contact)
+        except FileNotFoundError:
+            print("No previous contacts found, starting fresh.")
+    
+    def save_contacts(self):
+        """
+        Description:
+            Saves all contacts in the address book to a CSV file.
+        Parameters:
+            self
+        Return:
+            None
+        """
+        with open(self.file_path, mode='w', newline='') as file: 
+            fieldnames = ['first_name', 'last_name', 'address', 'city', 'state', 'zipcode', 'phone_num', 'email']
+            writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+            writer.writeheader()
+
+            for contact in self.contacts:
+                writer.writerow(contact.__dict__)
     
     def __str__(self):
         return self.address_book_name
