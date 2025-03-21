@@ -1,6 +1,9 @@
 import json
 import os
 from contact import Contact
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class AddressBook:
     """
@@ -22,7 +25,7 @@ class AddressBook:
         """
         self.address_book_name = name
         self.contacts = []
-        self.file_path = f'{'data/json'}/{self.address_book_name}.json'
+        self.file_path = f'{os.getenv("JSON_PATH")}/{self.address_book_name}.json'
         if not os.path.exists(self.file_path): 
             open(self.file_path, mode='w', newline='').close()
         self.load_contacts()
