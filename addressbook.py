@@ -22,11 +22,7 @@ class AddressBook:
         """
         self.address_book_name = name
         self.contacts = []
-<<<<<<< HEAD
-        self.file_path = f'{'data/csv'}/{self.address_book_name}.csv'
-=======
         self.file_path = f'{'data/json'}/{self.address_book_name}.json'
->>>>>>> UC14_read_write_json
         if not os.path.exists(self.file_path): 
             open(self.file_path, mode='w', newline='').close()
         self.load_contacts()

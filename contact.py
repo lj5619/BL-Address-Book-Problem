@@ -1,5 +1,5 @@
 from validator import validate_user_data
-from addressbook import AddressBook
+# from addressbook import AddressBook
 class Contact:
     def __init__(self, **kwargs):
         """
